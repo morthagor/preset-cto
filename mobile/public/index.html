@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preset CTO - Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        body {
+            background-color: #F5F5F5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        #root {
+            width: 100%;
+            max-width: 500px;
+        }
+        .container {
+            background: white;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #263238;
+            margin-bottom: 8px;
+        }
+        .subtitle {
+            font-size: 16px;
+            color: #757575;
+            font-weight: 500;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #424242;
+            margin-bottom: 8px;
+        }
+        input {
+            width: 100%;
+            height: 50px;
+            border: 1px solid #E0E0E0;
+            border-radius: 8px;
+            padding: 0 16px;
+            font-size: 16px;
+            color: #212121;
+            font-family: inherit;
+        }
+        input:focus {
+            outline: none;
+            border-color: #1976D2;
+            box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.1);
+        }
+        input::placeholder {
+            color: #B0BEC5;
+        }
+        button {
+            width: 100%;
+            height: 50px;
+            background-color: #1976D2;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+            font-family: inherit;
+        }
+        button:hover:not(:disabled) {
+            background-color: #1565C0;
+        }
+        button:disabled {
+            background-color: #90CAF9;
+            cursor: not-allowed;
+        }
+        .footer {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #E0E0E0;
+            margin-top: 30px;
+        }
+        .footer-text {
+            font-size: 14px;
+            color: #616161;
+            margin-bottom: 8px;
+        }
+        .credentials {
+            font-size: 12px;
+            color: #757575;
+            font-style: italic;
+        }
+        .error {
+            color: #D32F2F;
+            font-size: 14px;
+            margin-top: 10px;
+            text-align: center;
+        }
+        .loading {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <div class="container">
+            <div class="header">
+                <div class="title">Preset CTO</div>
+                <div class="subtitle">Sistema de Gestão Privado</div>
+            </div>
+
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="username">Usuário</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        placeholder="Digite seu usuário" 
+                        value="morthagor"
+                        required
+                        autocomplete="off"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        placeholder="Digite sua senha" 
+                        value="wp1234wp"
+                        required
+                        autocomplete="off"
+                    >
+                </div>
+
+                <button type="submit" id="loginBtn">
+                    <span id="btnText">Entrar</span>
+                </button>
+                <div id="error" class="error"></div>
+            </form>
+
+            <div class="footer">
+                <div class="footer-text">Para o MVP, use:</div>
+                <div class="credentials">Usuário: morthagor</div>
+                <div class="credentials">Senha: wp1234wp</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const loginBtn = document.getElementById('loginBtn');
+            const btnText = document.getElementById('btnText');
+            const errorDiv = document.getElementById('error');
+
+            if (!username || !password) {
+                errorDiv.textContent = 'Por favor, preencha todos os campos';
+                return;
+            }
+
+            loginBtn.disabled = true;
+            btnText.innerHTML = '<div class="loading"></div>';
+            errorDiv.textContent = '';
+
+            try {
+                // Try to call real backend API
+                const response = await fetch('http://localhost:8080/api/v2/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username,
+                        password,
+                    }),
+                    mode: 'cors',
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.success) {
+                        // Save token and user to localStorage
+                        localStorage.setItem('token', data.token);
+                        localStorage.setItem('user', JSON.stringify(data.user));
+                        errorDiv.textContent = '✓ Login realizado com sucesso!';
+                        errorDiv.style.color = '#4CAF50';
+                        setTimeout(() => {
+                            // Redirect to dashboard (simplified - just shows a message)
+                            window.location.href = '/dashboard.html';
+                        }, 1000);
+                        return;
+                    } else {
+                        errorDiv.textContent = data.message || 'Falha ao autenticar';
+                    }
+                } else {
+                    errorDiv.textContent = 'Erro ao conectar com o servidor';
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                // Fallback to mock login
+                if (username === 'morthagor' && password === 'wp1234wp') {
+                    localStorage.setItem('token', 'mock-token-' + Date.now());
+                    localStorage.setItem('user', JSON.stringify({
+                        id: '1',
+                        username: 'morthagor',
+                        name: 'Morthagor',
+                        email: 'morthagor@presetcto.com'
+                    }));
+                    errorDiv.textContent = '✓ Login realizado com sucesso (offline)!';
+                    errorDiv.style.color = '#4CAF50';
+                    setTimeout(() => {
+                        window.location.href = '/dashboard.html';
+                    }, 1000);
+                } else {
+                    errorDiv.textContent = 'Credenciais inválidas';
+                }
+            } finally {
+                loginBtn.disabled = false;
+                btnText.textContent = 'Entrar';
+            }
+        }
+
+        // Focus first input on load
+        window.addEventListener('load', () => {
+            document.getElementById('username').focus();
+        });
+    </script>
+</body>
+</html>

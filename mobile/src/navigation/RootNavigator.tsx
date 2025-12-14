@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ActivityIndicator, View } from 'react-native';
 import AuthService from '../services/AuthService';
@@ -37,31 +36,29 @@ export const RootNavigator = () => {
   }
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-          cardStyle: { backgroundColor: '#F5F5F5' },
-        }}
-      >
-        {isAuthenticated ? (
-          <Stack.Screen
-            name="Dashboard"
-            component={DashboardScreen}
-            options={{
-              animationEnabled: false,
-            }}
-          />
-        ) : (
-          <Stack.Screen
-            name="Login"
-            component={LoginScreen}
-            options={{
-              animationEnabled: false,
-            }}
-          />
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        cardStyle: { backgroundColor: '#F5F5F5' },
+      }}
+    >
+      {isAuthenticated ? (
+        <Stack.Screen
+          name="Dashboard"
+          component={DashboardScreen}
+          options={{
+            animationEnabled: false,
+          }}
+        />
+      ) : (
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{
+            animationEnabled: false,
+          }}
+        />
+      )}
+    </Stack.Navigator>
   );
 };
