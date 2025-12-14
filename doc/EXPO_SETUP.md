@@ -119,7 +119,7 @@ mobile/
 | Pacote | Versão | Propósito |
 |--------|--------|----------|
 | `expo` | ^50.0.0 | Framework Expo para React Native |
-| `react-native` | 0.73.0 | React Native (gerenciado pelo Expo) |
+| `react-native` | 0.81.0 | React Native (gerenciado pelo Expo) |
 | `@react-navigation/*` | ^6.x | Navegação (tabs, stacks) |
 | `@reduxjs/toolkit` | ^1.9.7 | State management |
 | `axios` | ^1.6.5 | HTTP client com JWT |
@@ -286,4 +286,4 @@ eas build --platform ios
 **Criado em**: dezembro de 2024  
 **Atualizado**: Migração para Expo (resolvido npm install issues)  
 **Versão Expo**: 50.0.0  
-**Versão React Native**: 0.73.0
+**Versão React Native**: 0.81.0
