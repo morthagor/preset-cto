@@ -1,0 +1,209 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║                    PRESET CTO - 2 Layer Architecture                        ║
+║                        Backend (Java 21) + Mobile (Expo)                    ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+📂 ESTRUTURA DO PROJETO
+=======================
+
+cto/
+├── backend/                    Java 21 + Spring Boot 4.0.0
+│   ├── pom.xml                (Maven, Spring Security, PostgreSQL, Redis)
+│   ├── src/main/java/...      (Controllers, Services, Models)
+│   └── src/test/java/...      (Unit tests)
+│
+├── mobile/                     React Native com Expo 50.0
+│   ├── package.json           (Dependencies: Redux, Axios, Navigation)
+│   ├── app.json               (Expo configuration)
+│   ├── App.tsx                (Root component com Redux + Navigation)
+│   ├── src/
+│   │   ├── screens/           (LoginScreen, TaskListScreen, ProfileScreen)
+│   │   ├── services/          (ApiClient, SyncService)
+│   │   ├── store/             (Redux: authSlice, syncSlice)
+│   │   └── navigation/        (React Navigation)
+│   └── node_modules/          (1373 packages installed)
+│
+└── docker-compose.yml         (PostgreSQL 16, Redis 7, RabbitMQ)
+
+
+🚀 INICIALIZAR RÁPIDO
+=====================
+
+OPÇÃO 1: Teste Mobile App (Recomendado para iniciar)
+───────────────────────────────────────────────────
+
+$ cd cto/mobile
+$ npm start
+
+Opções no menu:
+  a → Android emulator
+  w → Web browser (teste rápido)
+  i → iOS simulator (Mac apenas)
+  r → Reload
+  q → Quit
+
+
+OPÇÃO 2: Rodar Backend (Java)
+──────────────────────────────
+
+$ cd cto/backend
+$ mvn spring-boot:run
+
+Ou com Docker (PostgreSQL, Redis, RabbitMQ):
+$ docker-compose up -d
+$ mvn spring-boot:run
+
+
+OPÇÃO 3: Rodar Tudo Junto (Recomendado)
+────────────────────────────────────────
+
+Terminal 1 - Services (Docker)
+$ docker-compose up -d
+
+Terminal 2 - Backend API
+$ cd backend && mvn spring-boot:run
+
+Terminal 3 - Mobile App
+$ cd mobile && npm start
+[Pressione 'a' para Android ou 'w' para Web]
+
+
+📱 TELAS DO APP
+===============
+
+1. LoginScreen (inicial)
+   ├─ Código do Funcionário: demo
+   ├─ Senha: 123456
+   └─ Botão "Entrar"
+
+2. TaskListScreen (primeira aba)
+   ├─ Lista de tarefas
+   ├─ Pull-to-refresh
+   └─ FAB: Nova tarefa
+
+3. ProfileScreen (segunda aba)
+   ├─ Dados do usuário
+   ├─ Último sync
+   └─ Logout
+
+
+🔧 ARQUITETURA DE SYNC
+======================
+
+Offline-First:
+  Quando offline → salva localmente
+  Quando online → sincroniza com backend
+
+Backend endpoints:
+  POST /api/auth/login              (autenticação)
+  POST /api/sync/push               (enviar mudanças)
+  GET  /api/sync/pull               (buscar atualizações)
+  GET  /api/updates/mobile          (check versão app)
+
+
+🗄️ BANCO DE DADOS
+=================
+
+PostgreSQL 16 (Docker)
+├─ Port: 5432
+├─ User: postgres
+└─ Password: postgres
+
+Redis 7 (Cache)
+├─ Port: 6379
+└─ Usado para: Sessions, Cache
+
+RabbitMQ (Message Queue)
+├─ Port: 5672
+├─ Management: http://localhost:15672
+└─ User: guest / Password: guest
+
+
+📚 DOCUMENTAÇÃO
+===============
+
+├─ EXPO_READY.md               Status final do setup
+├─ EXPO_SETUP.md               Guia detalhado com troubleshooting
+├─ MOBILE_RUN.md               Quick start mobile
+├─ ANDROID_SDK_SETUP.md        Setup emulador Android
+├─ ARCHITECTURE.md             Design geral 2-layer
+├─ docker-compose.yml          Services (Postgres, Redis, RabbitMQ)
+└─ SYNC.md                     Estratégia de sincronização offline-first
+
+
+✅ CHECKLIST INICIAL
+====================
+
+Backend:
+  ☐ Java 21 instalado:  java -version
+  ☐ Maven instalado:    mvn -version
+  ☐ Docker rodando:     docker ps
+  ☐ Services up:        docker-compose ps
+
+Mobile:
+  ☐ Node 18+:           node -v (você tem: v20.19.6)
+  ☐ npm 9+:             npm -v  (você tem: 10.8.2)
+  ☐ Expo instalado:     npx expo --version (50.0.21)
+  ☐ node_modules OK:    ls mobile/node_modules/@reduxjs/toolkit
+
+
+🎯 PRÓXIMOS PASSOS APÓS INICIAR
+================================
+
+1. Teste LoginScreen com credenciais de demo
+2. Navegue entre abas (TaskList, Profile)
+3. Implemente API endpoints no backend
+4. Conecte app ao backend (atualizar ApiClient.ts)
+5. Adicione mais telas (TaskDetail, CreateTask)
+6. Configure CI/CD (GitHub Actions)
+
+
+❓ PROBLEMAS COMUNS
+===================
+
+npm install falha:
+  $ npm install --legacy-peer-deps
+
+Expo não inicia:
+  $ npm start -- --clear
+
+Emulador Android não abre:
+  $ emulator -list-avds
+  $ emulator -avd <seu_avd> &
+  $ npm run android
+
+Backend porta 8080 em uso:
+  $ lsof -i :8080
+  $ kill -9 <PID>
+
+
+📞 CONTATOS ÚTEIS
+=================
+
+Expo Docs:      https://docs.expo.dev/
+React Native:   https://reactnative.dev/
+Spring Boot:    https://spring.io/projects/spring-boot
+Redux:          https://redux-toolkit.js.org/
+
+
+════════════════════════════════════════════════════════════════════════════════
+
+STATUS: ✅ PRONTO PARA USAR
+
+Node.js:      v20.19.6 ✅
+npm:          10.8.2 ✅
+Expo:         50.0.21 ✅
+React Native: 0.73.0 ✅
+Java:         21 LTS ✅
+
+Última atualização: dezembro de 2024
+Versão: 0.1.0
+
+════════════════════════════════════════════════════════════════════════════════
+
+🚀 COMMAND TO START:
+    cd cto/mobile && npm start
+
+════════════════════════════════════════════════════════════════════════════════

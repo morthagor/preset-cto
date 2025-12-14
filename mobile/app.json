@@ -1,0 +1,26 @@
+{
+  "expo": {
+    "name": "PresetCTO",
+    "slug": "presetcto-mobile",
+    "version": "0.1.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTabletMode": true,
+      "bundleIdentifier": "com.presetcto.mobile"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.presetcto.mobile"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "scheme": "presetcto",
+    "description": "Offline-first mobile app for task management with real-time synchronization"
+  }
+}
