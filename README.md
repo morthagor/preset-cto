@@ -116,8 +116,12 @@ cto/
 │   └── README.md
 ├── docker-compose.yml        # Serviços (postgres, redis, rabbitmq)
 ├── .env.example              # Variáveis de ambiente (template)
-├── ARCHITECTURE.md           # Visão da arquitetura
-├── SYNC.md                   # Estratégia de sincronização offline-first
+├── doc/                      # Documentação técnica
+│   ├── ARCHITECTURE.md       # Visão da arquitetura
+│   ├── SYNC.md               # Estratégia de sincronização offline-first
+│   ├── START_HERE.md         # Guia para começar
+│   └── ...
+├── CHANGELOG.md              # Histórico de mudanças
 └── README.md                 # Este arquivo
 ```
 
@@ -130,7 +134,7 @@ O app mobile funciona **totalmente offline**:
 - Quando online, o app sincroniza com o backend
 - Conflitos de sincronização são resolvidos automáticamente
 
-Veja [SYNC.md](./SYNC.md) para detalhes técnicos.
+Veja [SYNC.md](./doc/SYNC.md) para detalhes técnicos.
 
 ---
 
@@ -139,7 +143,7 @@ Veja [SYNC.md](./SYNC.md) para detalhes técnicos.
 O app será distribuído manualmente aos técnicos:
 - **Android**: `.apk` ou `.aab` assinado
 - **iOS**: via TestFlight ou installation profile privado
-- **Atualizações**: via API `/api/v1/updates/mobile` (veja [SYNC.md](./SYNC.md))
+- **Atualizações**: via API `/api/v1/updates/mobile` (veja [SYNC.md](./doc/SYNC.md))
 
 ---
 
@@ -170,8 +174,11 @@ docker-compose exec postgres psql -U presetcto -d presetcto_db
 
 ## 📚 Documentação
 
-- [ARCHITECTURE.md](./ARCHITECTURE.md) — Camadas, componentes e fluxos
-- [SYNC.md](./SYNC.md) — Estratégia offline-first e sincronização
+- [ARCHITECTURE.md](./doc/ARCHITECTURE.md) — Camadas, componentes e fluxos
+- [SYNC.md](./doc/SYNC.md) — Estratégia offline-first e sincronização
+- [START_HERE.md](./doc/START_HERE.md) — Guia rápido para começar
+- [ANDROID_SDK_SETUP.md](./doc/ANDROID_SDK_SETUP.md) — Setup do Android SDK
+- [EXPO_SETUP.md](./doc/EXPO_SETUP.md) — Setup Expo
 - [backend/README.md](./backend/README.md) — Setup e comandos do backend
 - [mobile/README.md](./mobile/README.md) — Setup e build do mobile
 
