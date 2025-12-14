@@ -25,7 +25,8 @@ public class AuthService {
     private PasswordEncoder passwordEncoder;
 
     /**
-     * Authenticate user and return JWT token
+     * Authenticate user and return JWT token (v2 version)
+     * Supports optional deviceId for tracking
      */
     public LoginResponse login(LoginRequest loginRequest) {
         Optional<User> userOptional = userRepository.findByUsername(loginRequest.getUsername());
@@ -43,6 +44,11 @@ public class AuthService {
         // For MVP: compare plain password (in production, use passwordEncoder)
         if (!loginRequest.getPassword().equals(user.getPassword())) {
             return new LoginResponse(false, "Usuário ou senha inválido");
+        }
+
+        // Log device info if provided (v2 feature)
+        if (loginRequest.getDeviceId() != null) {
+            System.out.println("Device login: " + loginRequest.getDeviceId() + " for user: " + user.getUsername());
         }
 
         // Generate JWT token

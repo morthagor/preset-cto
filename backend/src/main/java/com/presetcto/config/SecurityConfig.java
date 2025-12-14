@@ -42,8 +42,9 @@ public class SecurityConfig {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/api/v1/auth/login").permitAll()
-                .antMatchers("/api/v1/auth/**").authenticated()
+                .antMatchers(HttpMethod.POST, "/api/v2/auth/login").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v2/auth/health").permitAll()
+                .antMatchers("/api/v2/auth/**").authenticated()
                 .anyRequest().permitAll()
             .and()
             .httpBasic();

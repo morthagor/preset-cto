@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/api/v2/auth")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class AuthController {
 
@@ -24,8 +24,8 @@ public class AuthController {
     private JwtTokenProvider jwtTokenProvider;
 
     /**
-     * Login endpoint - POST /api/v1/auth/login
-     * Request body: { "username": "morthagor", "password": "wp1234wp" }
+     * Login endpoint - POST /api/v2/auth/login
+     * Request body: { "username": "morthagor", "password": "wp1234wp", "deviceId": "optional" }
      */
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
@@ -44,7 +44,7 @@ public class AuthController {
     }
 
     /**
-     * Get current user info - GET /api/v1/auth/me
+     * Get current user info - GET /api/v2/auth/me
      * Requires JWT token in Authorization header
      */
     @GetMapping("/me")
@@ -70,12 +70,20 @@ public class AuthController {
     }
 
     /**
-     * Logout endpoint - POST /api/v1/auth/logout
+     * Logout endpoint - POST /api/v2/auth/logout
      * Note: JWT tokens are stateless, so logout is handled client-side
      */
     @PostMapping("/logout")
     public ResponseEntity<String> logout() {
-        return ResponseEntity.ok("{\"message\": \"Logout realizado com sucesso\"}");
+        return ResponseEntity.ok("{\"success\": true, \"message\": \"Logout realizado com sucesso\"}");
+    }
+
+    /**
+     * Health check endpoint - GET /api/v2/auth/health
+     */
+    @GetMapping("/health")
+    public ResponseEntity<String> health() {
+        return ResponseEntity.ok("{\"status\": \"ok\", \"service\": \"auth\"}");
     }
 
     /**
