@@ -8,6 +8,89 @@ Para mudanças que impactam ambas as camadas, veja [../CHANGELOG.md](../CHANGELO
 
 ## [Unreleased]
 
+## [1.0.2] — 2025-12-13
+
+### Added
+- [2025-12-13] **LoginScreen** completo com Light Theme
+  - Email e password inputs com validação
+  - Cores: background #F5F5F5, botão #1976D2
+  - Integração com AuthService
+  - Suporte a login offline (mock credentials)
+  - Redirecionamento automático após login
+  - Arquivo: src/screens/LoginScreen.tsx
+- [2025-12-13] **DashboardScreen** (ProfileScreen)
+  - Welcome message personalizado (ex: "Bem-vindo, morthagor")
+  - Exibição de informações do usuário
+  - Botão de logout com confirmação
+  - Light theme colors
+  - Arquivo: src/screens/ProfileScreen.tsx
+- [2025-12-13] **AuthService.ts** com smart fallback
+  - login(email, password): faz requisição ao backend (/api/v2/auth/login)
+  - Se backend falhar: usa mock credentials (morthagor / wp1234wp)
+  - getCurrentUser(): retorna dados do usuário autenticado
+  - logout(): limpa token e user data
+  - validateToken(): verifica validade do JWT
+  - Arquivo: src/services/AuthService.ts
+- [2025-12-13] **RootNavigator** com autenticação
+  - Verifica if user.token is present
+  - Se autenticado: mostra DashboardScreen
+  - Se não autenticado: mostra LoginScreen
+  - Arquivo: src/navigation/RootNavigator.tsx
+- [2025-12-13] **Web UI support** com fallback HTML/CSS/JS
+  - public/index.html: Login screen (HTML/CSS)
+  - public/dashboard.html: Dashboard screen (HTML/CSS)
+  - LocalStorage para persistência
+  - Sem backend necessário (funciona offline)
+  - Servido via Python HTTP server (porta 8081)
+- [2025-12-13] **Guias de teste** abrangentes
+  - MOBILE_TESTING.md: 150+ linhas com:
+    - Backend setup (Java 21, Maven, PostgreSQL)
+    - Mobile setup (Node.js, expo-cli, Android Studio)
+    - Como rodar na web (Python server)
+    - Como rodar no Android (AVD, Expo)
+    - Como rodar no iOS (simulator, Xcode)
+    - Passo a passo: login → dashboard → logout
+  - MOBILE_QUICK_TEST.txt: Quick reference
+    - Option 1: Web UI (Python HTTP server)
+    - Option 2: Expo (npm start)
+- [2025-12-13] **API Client improvements**
+  - Fallback automático para mock se backend indisponível
+  - Tratamento de erros melhorado
+  - Bearer token automático no header
+  - Arquivo: src/services/ApiClient.ts
+
+### Changed
+- [2025-12-13] Removed expo-router (router-based navigation)
+- [2025-12-13] Implementado custom RootNavigator com conditional rendering
+- [2025-12-13] Package.json main: expo-router/entry → index.js
+- [2025-12-13] Babel config com suporte JSX e React Native Web
+- [2025-12-13] App.tsx simplificado: remover NavigationContainer duplicado
+- [2025-12-13] AuthService: agora retorna objeto { token, user }
+- [2025-12-13] LoginScreen: mudado de código funcionário para email
+- [2025-12-13] Redux authSlice: added user field alongside token
+
+### Fixed
+- [2025-12-13] Erro de renderização em branco no React Native Web
+  - Causa: duplication de NavigationContainer
+  - Solução: único NavigationContainer em App.tsx
+- [2025-12-13] Missing assets na pasta public/
+  - Criado favicon.png (1x1)
+  - Criado adaptive-icon.png (1x1)
+- [2025-12-13] Dependência faltante react-native-toast-message
+  - Instalado: npm install react-native-toast-message
+- [2025-12-13] Port 8081 conflict (Expo)
+  - Expo reconfigurado para porta 8082
+  - Python HTTP server usando 8081
+
+### Security
+- [2025-12-13] JWT token validation no mobile
+- [2025-12-13] AsyncStorage com apenas token (não username)
+- [2025-12-13] Bearer token no Authorization header
+- [2025-12-13] Mock credentials apenas para desenvolvimento offline
+- [2025-12-13] Logout limpa AsyncStorage completamente
+
+## [0.1.0] — 2025-12-13
+
 ### Added
 - [2025-12-13] Projeto React Native 0.72 inicializado com TypeScript
 - [2025-12-13] Dependências principais:
@@ -77,26 +160,6 @@ Para mudanças que impactam ambas as camadas, veja [../CHANGELOG.md](../CHANGELO
 - [2025-12-13] Node.js 18+ support
 - [2025-12-13] npm 9+ support
 - [2025-12-13] Dev scripts: start, android, ios, build, test, lint
-
-### Documentation
-- [2025-12-13] mobile/README.md com setup e tech stack
-- [2025-12-13] MOBILE_RUN.md com instruções para rodar app
-- [2025-12-13] Documentação de SyncService (SYNC.md da raiz)
-
----
-
-## [0.1.0] — 2025-12-13
-
-### Initial Release
-
-- ✅ React Native 0.72 project scaffold
-- ✅ TypeScript support
-- ✅ Redux Toolkit setup
-- ✅ React Navigation (tabs + stack)
-- ✅ Basic screens (Login, Tasks, Profile)
-- ✅ Offline-first sync service
-- ✅ Network detection
-- ✅ Ready for development
 
 ---
 

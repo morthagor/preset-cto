@@ -8,6 +8,57 @@ Para mudanças que impactam ambas as camadas, veja [../CHANGELOG.md](../CHANGELO
 
 ## [Unreleased]
 
+## [1.0.2] — 2025-12-13
+
+### Added
+- [2025-12-13] **API v2 endpoints** para autenticação completa
+  - POST /api/v2/auth/login (email/password → JWT token)
+  - GET /api/v2/auth/me (recupera dados do usuário autenticado)
+  - POST /api/v2/auth/logout (invalidação de token)
+  - GET /api/v2/auth/health (healthcheck sem autenticação)
+- [2025-12-13] **JwtTokenProvider** completo
+  - Geração de JWT com 24 horas expiração
+  - Validação de token
+  - Extração de claims (email, roles)
+  - Suporte a bearer token no header Authorization
+- [2025-12-13] **Spring Security Configuration**
+  - Stateless sessions (sem cookies)
+  - Filtro de JWT customizado
+  - CORS habilitado
+  - Public endpoints: /api/v2/auth/login, /api/v2/auth/health
+  - Protected endpoints: /api/v2/auth/me, /api/v2/auth/logout
+- [2025-12-13] **User entity** com repositório JPA
+  - Campos: id, email, password, role, createdAt, updatedAt
+  - Métodos de validação: password, role check
+  - Repository para buscar by email
+- [2025-12-13] **AuthService** com lógica de negócio
+  - login(email, password) → JWT token
+  - validateToken(token) → UserDetails
+  - getCurrentUser() → User data
+  - logout() → token invalidation
+- [2025-12-13] **DTOs** para requisição/resposta
+  - LoginRequest: { email, password }
+  - LoginResponse: { token, user: { email, role } }
+  - MeResponse: { email, role, createdAt }
+
+### Changed
+- [2025-12-13] Java version configuration: Maven compiler plugin usando Java 21
+- [2025-12-13] Application.properties com database e JWT configuration
+
+### Fixed
+- [2025-12-13] Spring Security default behavior (auth required)
+- [2025-12-13] JWT claim extraction error handling
+- [2025-12-13] CORS header configuration
+
+### Security
+- [2025-12-13] JWT token validation em todos endpoints protegidos
+- [2025-12-13] Password hashing com Spring Security encoder
+- [2025-12-13] Bearer token extraction from Authorization header
+- [2025-12-13] Stateless sessions (sem session hijacking risk)
+- [2025-12-13] Token expiration: 24 hours (JWT_EXPIRATION)
+
+## [0.1.0] — 2025-12-13
+
 ### Added
 - [2025-12-13] Projeto Spring Boot 4.0.0 inicializado com JDK 21
 - [2025-12-13] Dependências principais:
@@ -41,21 +92,6 @@ Para mudanças que impactam ambas as camadas, veja [../CHANGELOG.md](../CHANGELO
 - [2025-12-13] org.projectlombok:lombok (optional)
 - [2025-12-13] org.springframework.boot:spring-boot-starter-test (test scope)
 - [2025-12-13] org.springframework.security:spring-security-test (test scope)
-
-### Documentation
-- [2025-12-13] backend/README.md criado com setup e run instructions
-
----
-
-## [0.1.0] — 2025-12-13
-
-### Initial Release
-
-- ✅ Spring Boot 4.0.0 project scaffold
-- ✅ JDK 21 configuration
-- ✅ Maven build system
-- ✅ Dependencies for JPA, Security, RabbitMQ, Redis, OpenAPI
-- ✅ Ready for controller/service development
 
 ---
 
