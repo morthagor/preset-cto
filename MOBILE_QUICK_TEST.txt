@@ -1,0 +1,63 @@
+# 🚀 Quick Start - Teste Rápido do Mobile
+
+## **Opção 1: Teste Rápido (Sem Backend) - 2 minutos**
+
+```bash
+# 1. Entre na pasta mobile
+cd mobile
+
+# 2. Instale as dependências (se não instalado)
+npm install
+
+# 3. Inicie a aplicação
+npm start
+
+# 4. Pressione 'w' para abrir no navegador (web)
+# Ou 'a' para Android / 'i' para iOS
+
+# 5. Use as credenciais:
+# Usuário: morthagor
+# Senha: wp1234wp
+```
+
+---
+
+## **Opção 2: Teste Completo (Com Backend) - 5 minutos**
+
+```bash
+# Terminal 1: Docker
+cd cto
+docker-compose up -d
+
+# Terminal 2: Backend
+cd backend
+mvn clean spring-boot:run
+
+# Terminal 3: Mobile
+cd mobile
+npm install (se necessário)
+npm start
+
+# Pressione 'w' (web) ou 'a' (android)
+```
+
+---
+
+## **O que você vai ver:**
+
+✅ **Tela de Login** - Cores claras, campo usuário/senha
+✅ **Autenticação** - Testa login com morthagor/wp1234wp
+✅ **Tela Dashboard** - Mensagem "Olá, Morthagor bem vindo ao Preset CTO"
+✅ **Logout** - Botão Sair funciona e volta ao login
+
+---
+
+## **Credenciais de Teste**
+```
+Usuário: morthagor
+Senha: wp1234wp
+```
+
+---
+
+**Pronto? Vamos testar! 🎉**

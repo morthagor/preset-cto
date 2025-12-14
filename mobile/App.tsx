@@ -7,6 +7,7 @@ import { store } from './src/store';
 import { RootNavigator } from './src/navigation/RootNavigator';
 import { SyncService } from './src/services/SyncService';
 import { useAppDispatch } from './src/store';
+import useWebStyles from './src/hooks/useWebStyles';
 
 const styles = StyleSheet.create({
   container: {
@@ -17,6 +18,7 @@ const styles = StyleSheet.create({
 
 const AppContent: React.FC = () => {
   const dispatch = useAppDispatch();
+  useWebStyles();
 
   useEffect(() => {
     // Initialize sync service on app start

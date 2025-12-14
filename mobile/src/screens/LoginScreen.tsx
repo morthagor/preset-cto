@@ -1,198 +1,211 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ActivityIndicator, Alert } from 'react-native';
-import { useAppDispatch, useAppSelector } from '../store';
-import { setLoading, setToken, setUser, setError } from '../store/slices/authSlice';
-import { apiClient } from '../services/ApiClient';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
+  ActivityIndicator,
+  Alert,
+  ScrollView,
+  SafeAreaView,
+} from 'react-native';
+import AuthService from '../services/AuthService';
+
+export default function LoginScreen({ navigation }: { navigation: any }) {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = async () => {
+    if (!username || !password) {
+      Alert.alert('Erro', 'Por favor, preencha todos os campos');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const response = await AuthService.login({
+        username,
+        password,
+      });
+
+      if (response.success) {
+        // Navigate to Dashboard on successful login
+        navigation.replace('Dashboard');
+      } else {
+        Alert.alert('Erro de Login', response.message || 'Falha ao autenticar');
+      }
+    } catch (error) {
+      Alert.alert('Erro', 'Erro inesperado ao tentar fazer login');
+      console.error('Login error:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.keyboardView}
+      >
+        <ScrollView
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.content}>
+          {/* Header */}
+          <View style={styles.headerSection}>
+            <Text style={styles.appTitle}>Preset CTO</Text>
+            <Text style={styles.appSubtitle}>Sistema de Gestão Privado</Text>
+          </View>
+
+          {/* Login Form */}
+          <View style={styles.formSection}>
+            <View style={styles.inputGroup}>
+              <Text style={styles.label}>Usuário</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Digite seu usuário"
+                placeholderTextColor="#B0BEC5"
+                value={username}
+                onChangeText={setUsername}
+                editable={!loading}
+                autoCapitalize="none"
+              />
+            </View>
+
+            <View style={styles.inputGroup}>
+              <Text style={styles.label}>Senha</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Digite sua senha"
+                placeholderTextColor="#B0BEC5"
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry
+                editable={!loading}
+              />
+            </View>
+
+            <TouchableOpacity
+              style={[styles.loginButton, loading && styles.loginButtonDisabled]}
+              onPress={handleLogin}
+              disabled={loading}
+            >
+              {loading ? (
+                <ActivityIndicator color="#FFFFFF" size="small" />
+              ) : (
+                <Text style={styles.loginButtonText}>Entrar</Text>
+              )}
+            </TouchableOpacity>
+          </View>
+
+          {/* Footer Info */}
+          <View style={styles.footerSection}>
+            <Text style={styles.footerText}>
+              Para o MVP, use:
+            </Text>
+            <Text style={styles.credentialsText}>
+              Usuário: morthagor
+            </Text>
+            <Text style={styles.credentialsText}>
+              Senha: wp1234wp
+            </Text>
+          </View>
+        </View>
+      </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#F5F5F5',
+  },
+  keyboardView: {
+    flex: 1,
+  },
+  scrollContent: {
+    flexGrow: 1,
     justifyContent: 'center',
   },
-  logoContainer: {
-    marginBottom: 40,
+  content: {
+    paddingHorizontal: 20,
+    paddingVertical: 40,
+  },
+  headerSection: {
+    marginBottom: 60,
     alignItems: 'center',
   },
-  logo: {
-    fontSize: 36,
+  appTitle: {
+    fontSize: 32,
     fontWeight: 'bold',
-    color: '#007AFF',
+    color: '#263238',
     marginBottom: 8,
   },
-  logoSubtitle: {
-    fontSize: 14,
-    color: '#666',
+  appSubtitle: {
+    fontSize: 16,
+    color: '#757575',
+    fontWeight: '500',
   },
-  formContainer: {
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 20,
-    elevation: 2,
+  formSection: {
+    marginBottom: 40,
+  },
+  inputGroup: {
+    marginBottom: 20,
   },
   label: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#333',
+    color: '#424242',
     marginBottom: 8,
   },
   input: {
-    backgroundColor: '#f9f9f9',
+    height: 50,
+    borderColor: '#E0E0E0',
     borderWidth: 1,
-    borderColor: '#ddd',
     borderRadius: 8,
-    padding: 12,
-    marginBottom: 20,
+    paddingHorizontal: 16,
     fontSize: 16,
-    color: '#333',
+    color: '#212121',
+    backgroundColor: '#FFFFFF',
   },
-  button: {
-    backgroundColor: '#007AFF',
-    padding: 16,
+  loginButton: {
+    height: 50,
+    backgroundColor: '#1976D2',
     borderRadius: 8,
+    justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 12,
-    elevation: 3,
+    marginTop: 10,
   },
-  buttonText: {
-    color: '#fff',
+  loginButtonDisabled: {
+    backgroundColor: '#90CAF9',
+  },
+  loginButtonText: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: '600',
+    color: '#FFFFFF',
   },
-  errorText: {
-    color: '#FF3B30',
-    marginBottom: 16,
-    textAlign: 'center',
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-    backgroundColor: '#FFE5E5',
-    borderRadius: 8,
-    overflow: 'hidden',
+  footerSection: {
+    alignItems: 'center',
+    paddingTop: 20,
+    borderTopWidth: 1,
+    borderTopColor: '#E0E0E0',
   },
-  demoText: {
+  footerText: {
+    fontSize: 14,
+    color: '#616161',
+    marginBottom: 8,
+  },
+  credentialsText: {
     fontSize: 12,
-    color: '#999',
-    textAlign: 'center',
-    marginTop: 16,
+    color: '#757575',
     fontStyle: 'italic',
   },
 });
-
-export const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
-  const [employeeCode, setEmployeeCode] = useState('');
-  const [password, setPassword] = useState('');
-  const dispatch = useAppDispatch();
-  const { isLoading, error } = useAppSelector((state) => state.auth);
-
-  const handleLogin = async () => {
-    if (!employeeCode || !password) {
-      dispatch(setError('Código do Funcionário e Senha são obrigatórios'));
-      return;
-    }
-
-    dispatch(setLoading(true));
-    dispatch(setError(null));
-
-    try {
-      // For demo: use mock login (backend not needed yet)
-      if (employeeCode === 'demo' && password === '123456') {
-        const mockToken = 'mock_jwt_token_' + Date.now();
-        const mockUser = {
-          id: '1',
-          name: 'Funcionário Demo',
-          email: 'demo@presetcto.local',
-          employeeCode: employeeCode,
-        };
-
-        await AsyncStorage.setItem('auth_token', mockToken);
-        dispatch(setToken(mockToken));
-        dispatch(setUser(mockUser));
-        navigation.replace('MainTabs');
-      } else {
-        // Try real API (if backend is running)
-        try {
-          const response = await apiClient.login(employeeCode, password);
-          await AsyncStorage.setItem('auth_token', response.token);
-          dispatch(setToken(response.token));
-          dispatch(setUser(response.user));
-          navigation.replace('MainTabs');
-        } catch (apiError: any) {
-          // Fallback to demo if API fails
-          dispatch(setError('API indisponível. Use credenciais demo: 123456'));
-        }
-      }
-    } catch (err: any) {
-      dispatch(setError(err.response?.data?.message || 'Erro ao fazer login. Tente novamente.'));
-    } finally {
-      dispatch(setLoading(false));
-    }
-  };
-
-  const handleDemoLogin = async () => {
-    setEmployeeCode('demo');
-    setPassword('123456');
-    // Trigger login after state update
-    setTimeout(() => {
-      handleLogin();
-    }, 0);
-  };
-
-  return (
-    <View style={styles.container}>
-      <View style={styles.logoContainer}>
-        <Text style={styles.logo}>Preset CTO</Text>
-        <Text style={styles.logoSubtitle}>Sistema de Gestão Privado</Text>
-      </View>
-
-      {error && <Text style={styles.errorText}>{error}</Text>}
-
-      <View style={styles.formContainer}>
-        <Text style={styles.label}>Código do Funcionário</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Digite seu código"
-          keyboardType="default"
-          value={employeeCode}
-          onChangeText={setEmployeeCode}
-          editable={!isLoading}
-          autoCapitalize="none"
-        />
-
-        <Text style={styles.label}>Senha</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Digite sua senha"
-          secureTextEntry
-          value={password}
-          onChangeText={setPassword}
-          editable={!isLoading}
-        />
-
-        <TouchableOpacity
-          style={styles.button}
-          onPress={handleLogin}
-          disabled={isLoading}
-          activeOpacity={0.8}
-        >
-          {isLoading ? (
-            <ActivityIndicator color="#fff" size="small" />
-          ) : (
-            <Text style={styles.buttonText}>Entrar</Text>
-          )}
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={handleDemoLogin}
-          disabled={isLoading}
-          activeOpacity={0.7}
-        >
-          <Text style={styles.demoText}>
-            Demo: Toque aqui para teste rápido
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
-};
