@@ -127,6 +127,19 @@ cto/
 
 ---
 
+## 🏗️ Arquitetura do Sistema
+
+![Preset CTO - System Architecture](./doc/diagrams/01.diagram_architeture.svg)
+
+A arquitetura segue um padrão **3-tier** com suporte a **offline-first**:
+- **Frontend** (Web + Mobile) com autenticação JWT
+- **Backend** (Spring Boot) com REST API e validação
+- **Data Layer** (PostgreSQL + Redis) com sincronização assíncrona
+
+Para detalhes completos, veja [ARCHITECTURE.md](./doc/ARCHITECTURE.md).
+
+---
+
 ## 🔄 Sincronização Offline-First (Mobile)
 
 O app mobile funciona **totalmente offline**:
