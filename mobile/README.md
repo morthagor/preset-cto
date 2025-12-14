@@ -5,7 +5,7 @@
 ![React Native](https://img.shields.io/badge/React%20Native-0.73.0-61dafb?style=flat-square&logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.3.3-3178c6?style=flat-square&logo=typescript)
 ![Node](https://img.shields.io/badge/Node->=20.0.0-339933?style=flat-square&logo=node.js)
-![npm](https://img.shields.io/badge/npm->=9.0.0-cb3837?style=flat-square&logo=npm)
+![npm](https://img.shields.io/badge/npm->=10.0.0-cb3837?style=flat-square&logo=npm)
 ![Redux](https://img.shields.io/badge/Redux-1.9.7-764abc?style=flat-square&logo=redux)
 ![React Navigation](https://img.shields.io/badge/React%20Navigation-6.5.0-000000?style=flat-square)
 ![License](https://img.shields.io/badge/License-Proprietary-red?style=flat-square)
@@ -109,7 +109,7 @@ mobile/
 ### Prerequisites
 
 - **Node.js 20+** (use `nvm install 20` or check `.nvmrc`)
-- **npm 9+**
+- **npm 10+**
 - **Expo CLI**: `npm install -g expo-cli`
 - **Android Studio** (para Android)
 - **Xcode** (para iOS em macOS)
