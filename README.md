@@ -31,7 +31,7 @@ Sistema de gestão completo com backend em **Spring Boot 4.0** (Java 21) e app m
 - **Maven** — gerenciador de dependências
 
 ### Mobile
-- **React Native 0.72** — app multiplataforma
+- **React Native 0.81** — app multiplataforma
 - **Android** + **iOS**
 - **Offline-first** — funciona sem conexão e sincroniza quando online
 - **Instalação privada** — distribuição manual aos técnicos
