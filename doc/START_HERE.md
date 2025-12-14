@@ -14,7 +14,7 @@ Migramos com sucesso de React Native bare CLI (que tinha problemas com npm) para
 - Novo `package.json` com Expo 50.0.21
 - `npm install --legacy-peer-deps` → 1373 pacotes instalados com sucesso
 - Novo `app.json` com configuração Expo completa
-- React Native 0.73.0 + React 18.3.1 + TypeScript 5.3
+- React Native 0.81.0 + React 18.3.1 + TypeScript 5.3
 
 ### 2. Código Preservado ✅
 Seu código TypeScript/React continua intacto e funcional:
@@ -110,7 +110,7 @@ cto/
 | Node.js | 20.19.6 | ✅ OK |
 | npm | 10.8.2 | ✅ OK |
 | **Expo** | **50.0.21** | ✅ **OK** |
-| React Native | 0.73.0 | ✅ OK |
+| React Native | 0.81.0 | ✅ OK |
 | React | 18.3.1 | ✅ OK |
 | TypeScript | 5.3.0 | ✅ OK |
 | Redux Toolkit | 1.9.7 | ✅ OK |

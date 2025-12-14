@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![React Native](https://img.shields.io/badge/React%20Native-0.73.0-61dafb?style=flat-square&logo=react)
+![React Native](https://img.shields.io/badge/React%20Native-0.81.0-61dafb?style=flat-square&logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.3.3-3178c6?style=flat-square&logo=typescript)
 ![Node](https://img.shields.io/badge/Node->=20.0.0-339933?style=flat-square&logo=node.js)
 ![npm](https://img.shields.io/badge/npm->=10.0.0-cb3837?style=flat-square&logo=npm)
@@ -19,7 +19,7 @@
 ## 🛠️ Tech Stack
 
 ### Frontend Framework
-- **React Native 0.73** — Cross-platform mobile framework
+- **React Native 0.81** — Cross-platform mobile framework
 - **React 18.2** — UI library
 - **TypeScript 5.3** — Type-safe development
 - **Expo 54** — Development and build tool

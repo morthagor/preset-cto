@@ -12,7 +12,7 @@
 
 **Instalação realizada:**
 - `npm install --legacy-peer-deps` → 1373 pacotes instalados
-- Expo 50.0.21 + React Native 0.73.0
+- Expo 54.0.29 + React Native 0.81.0
 - React 18.3.1 + TypeScript 5.3
 - Redux Toolkit 1.9.7 + React Navigation 6.x
 - Axios 1.6.5 + AsyncStorage 1.24.0
@@ -160,7 +160,7 @@ Depois:
 ### ⚠️ Notas Importantes:
 
 1. **Legacy Peer Deps**: Alguns pacotes precisam de `--legacy-peer-deps` mas são compatíveis
-2. **React versioning**: React 18.3 é OK com React Native 0.73 (warnings são normais)
+2. **React versioning**: React 18.3 é OK com React Native 0.81 (warnings são normais)
 3. **Web support**: Instalamos `react-native-web` automaticamente
 4. **TypeScript**: Completamente configurado, sem erros
 
@@ -206,7 +206,7 @@ npm run lint
 **Data**: dezembro de 2024  
 **Versões**:
 - Expo: 50.0.21
-- React Native: 0.73.0
+- React Native: 0.81.0
 - React: 18.3.1
 - TypeScript: 5.3.0
 

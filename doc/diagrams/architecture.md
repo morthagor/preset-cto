@@ -11,7 +11,7 @@ graph TB
 
     subgraph Frontend["Frontend Layer"]
         WebApp["Web UI<br/>public/index.html<br/>public/dashboard.html"]
-        MobileApp["Mobile App<br/>React Native 0.73<br/>TypeScript"]
+        MobileApp["Mobile App<br/>React Native 0.81<br/>TypeScript"]
         AuthService["AuthService.ts<br/>(Login/Logout)"]
         ApiClient["ApiClient.ts<br/>(HTTP Interceptor)"]
         SyncService["SyncService.ts<br/>(Offline-first)"]
@@ -224,7 +224,7 @@ Response: { email, role, createdAt }
 
 | Layer | Technology | Version |
 |-------|-----------|---------|
-| **Frontend** | React Native | 0.73.0 |
+| **Frontend** | React Native | 0.81.0 |
 | **Frontend** | TypeScript | 5.3.3 |
 | **Frontend** | Redux Toolkit | 1.9.7 |
 | **Frontend** | Axios | 1.6.5 |

@@ -69,7 +69,7 @@ npm run web
 | Layer | Tecnologia | Versão |
 |-------|-----------|--------|
 | **Framework** | Expo | 50.0.0 |
-| **React Native** | React Native | 0.73.0 |
+| **React Native** | React Native | 0.81.0 |
 | **React** | React | 18.2.0 |
 | **TypeScript** | TypeScript | 5.3 |
 | **State** | Redux Toolkit | 1.9.7 |
