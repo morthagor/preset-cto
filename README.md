@@ -10,7 +10,7 @@
 ![RabbitMQ](https://img.shields.io/badge/RabbitMQ-Latest-FF6600?style=for-the-badge&logo=rabbitmq&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![Maven](https://img.shields.io/badge/Maven-3.8+-C71A36?style=for-the-badge&logo=apache-maven&logoColor=white)
-![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=node.js&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-20+-339933?style=for-the-badge&logo=node.js&logoColor=white)
 ![Android](https://img.shields.io/badge/Android-Latest-3DDC84?style=for-the-badge&logo=android&logoColor=white)
 ![iOS](https://img.shields.io/badge/iOS-Latest-000000?style=for-the-badge&logo=apple&logoColor=white)
 ![License](https://img.shields.io/badge/License-Private-red?style=for-the-badge)
@@ -48,7 +48,7 @@ Sistema de gestão completo com backend em **Spring Boot 4.0** (Java 21) e app m
 ### Pré-requisitos
 - **Docker** + **Docker Compose**
 - **JDK 21** (ou instale via Maven em `~/.jdk`)
-- **Node.js 18+** e **npm**
+- **Node.js 20+** e **npm**
 
 ### 1. Inicie os serviços Docker
 
